@@ -1,8 +1,8 @@
 import React from 'react'
-import './App.css';
+import "../index.css" 
 const Navbar = () => {
     return (
-        <div className="flex w-full  justify-start items-center">
+        <div className="flex w-full  justify-start items-center ">
             <div className="m-4">
                 <div className="rounded-lg cursor-pointer hover:bg-slate-100 flex">
                     <span className="p-2">
