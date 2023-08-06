@@ -1,5 +1,4 @@
 import React from 'react'
-import '../index.css';
 const Videodisplay = () => {
     return (
         <div className="flex justify-center absolute">

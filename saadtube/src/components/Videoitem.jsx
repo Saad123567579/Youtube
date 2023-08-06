@@ -1,5 +1,4 @@
 import React from 'react'
-import '../index.css';
 const Videoitem = () => {
     return (
         <div className="h-80 w-96 cursor-pointer hover:shadow-lg ">
