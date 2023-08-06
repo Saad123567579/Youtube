@@ -1,5 +1,5 @@
 import React from 'react'
-import "../index.css" 
+import "../index.css" ;
 const Navbar = () => {
     return (
         <div className="flex w-full  justify-start items-center ">

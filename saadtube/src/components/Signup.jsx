@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App.css';
+import '../index.css';
 const Signup = () => {
     return (
         <div className="m-auto w-2/4">
