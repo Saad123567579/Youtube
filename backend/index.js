@@ -1,9 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-const userRouter = require("./router/User");
-const videoRouter = require("./router/Video");
-const commentRouter = require("./router/Comment");
-
+import cors from "cors"; 
+import cookieParser from "cookie-parser"; 
+import videoRouter from "./router/Video.js";
+import commentRouter from "./router/Comment.js";
+import authRouter from "./router/Auth.js";
+import userRouter from "./router/User.js";
 const app = express();
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -13,9 +15,11 @@ app.use(express.json());
 
 
 app.use(cookieParser());
-app.use("/user",userRouter.router)
-app.use("/video",videoRouter.router)
-app.use("/comment",commentRouter.router)
+app.use("/user",userRouter)
+app.use("/video",videoRouter)
+app.use("/comment",commentRouter)
+app.use("/auth",authRouter)
+
 
 
 let url = "mongodb+srv://saady:429331@cluster0.azmorz9.mongodb.net/Youtube";
