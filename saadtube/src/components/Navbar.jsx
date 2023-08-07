@@ -37,7 +37,7 @@ const Navbar = () => {
 
             {user ? (
                 <div className="flex justify-end m-4">
-                    <img src={user.image} className='rounded-full border-2 w-10 h-10 mr-2' />
+                    <img src={user.image} className='rounded-full border-2 w-12 h-12 mr-2' />
                     <button to="/signup" className="border-2 border-black p-2 -blue-100 hover:bg-black hover:text-white" onClick={handleLogout}>Logout</button>
                 </div>
             ) : (

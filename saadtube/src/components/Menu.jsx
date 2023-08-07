@@ -12,10 +12,18 @@ const Menu = () => {
                 <span className="p-2 font-semibold">Home</span>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
+                <span className="p-2">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Zm7 11-6-2V4l6-2v10Z" />
+                    </svg>
+                </span>
+                <span className="p-2 font-semibold">Upload Video</span>
+            </div>
+            <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1.984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L2.506 1.139A1 1 0 0 0 1 1.984Z" />
                 </svg></span>
-                <span className="p-2 font-semibold">Shorts</span>
+                <span className="p-2 font-semibold">My Videos</span>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 21">
@@ -27,13 +35,13 @@ const Menu = () => {
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 16.5c0-1-8-2.7-9-2V1.8c1-1 9 .707 9 1.706M10 16.5V3.506M10 16.5c0-1 8-2.7 9-2V1.8c-1-1-9 .707-9 1.706" />
                 </svg></span>
-                <span className="p-2 font-semibold">Library</span>
+                <span className="p-2 font-semibold">Liked Videos</span>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg></span>
-                <span className="p-2 font-semibold">History</span>
+                <span className="p-2 font-semibold">Watch Later</span>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
