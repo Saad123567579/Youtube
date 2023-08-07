@@ -16,6 +16,7 @@ const Login = () => {
         const d = await  dispatch(loginUserAsync(data));
         if(d.payload=="Invalid Email Or Password" ) {return toast.error("Invalid Email Or Password")}
         if(d.payload=="Internal Server Error") {return toast.error("Internal Server Error. Please try again")}
+        window.location.href="/";
         return toast.success("Welcome Back");
     }
     return (

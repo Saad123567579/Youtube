@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 import '../index.css';
 const Menu = () => {
     return (
@@ -9,7 +10,7 @@ const Menu = () => {
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
                 </svg></span>
-                <span className="p-2 font-semibold">Home</span>
+                <Link to='/' className="p-2 font-semibold">Home</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2">
@@ -17,31 +18,31 @@ const Menu = () => {
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Zm7 11-6-2V4l6-2v10Z" />
                     </svg>
                 </span>
-                <span className="p-2 font-semibold">Upload Video</span>
+                <Link to="/videoupload" className="p-2 font-semibold">Upload Video</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1.984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L2.506 1.139A1 1 0 0 0 1 1.984Z" />
                 </svg></span>
-                <span className="p-2 font-semibold">My Videos</span>
+                <Link to="/myvideos" className="p-2 font-semibold">My Videos</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 21">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C17 15.4 17 16 16.462 16H3.538C3 16 3 15.4 3 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 10 3.464ZM1.866 8.832a8.458 8.458 0 0 1 2.252-5.714m14.016 5.714a8.458 8.458 0 0 0-2.252-5.714M6.54 16a3.48 3.48 0 0 0 6.92 0H6.54Z" />
                 </svg></span>
-                <span className="p-2 font-semibold">Subscriptions</span>
+                <Link to="/mysubscriptions" className="p-2 font-semibold">Subscriptions</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 16.5c0-1-8-2.7-9-2V1.8c1-1 9 .707 9 1.706M10 16.5V3.506M10 16.5c0-1 8-2.7 9-2V1.8c-1-1-9 .707-9 1.706" />
                 </svg></span>
-                <span className="p-2 font-semibold">Liked Videos</span>
+                <Link to="/mylikedvideos" className="p-2 font-semibold">Liked Videos</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg></span>
-                <span className="p-2 font-semibold">Watch Later</span>
+                <Link to="/mywatchlater" className="p-2 font-semibold">Watch Later</Link>
             </div>
             <div className=" rounded-lg cursor-pointer m-2 hover:bg-slate-100 flex justify-start">
                 <span className="p-2"><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">

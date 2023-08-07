@@ -20,6 +20,7 @@ const Signup = () => {
         console.log(d);
         if(d.payload=="Sorry a user already exists with this email"){return toast.error("Email already in use. Try something else")}
         if(d.payload=="Internal Server Error" || d.payload=="unable to save user") {return toast.error("Internal Server Error. Please Try Again")};
+        window.location.href="/";
         return toast.success("Congratulations on creating your account");
     }
     const signGoogle = async() => {console.log("Clicked");

@@ -8,6 +8,12 @@ import Comment from "./components/Comment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getUserAsync } from './features/userSlice';
 import { useDispatch } from 'react-redux';
+import Videoupload from './components/Videoupload';
+import Myvideos from "./components/Myvideos";
+import Subscriptions from "./components/Subscriptions"
+import Watchlater from "./components/Watchlater";
+import Likedvideos from "./components/Likedvideos";
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,6 +35,13 @@ function App() {
             
             <Route  path="/signup" element={<Signup/>} />
             <Route  path="/login" element={<Login/>} />
+            <Route  path="/videoupload" element={<Videoupload/>} />
+            <Route  path="/myvideos" element={<Myvideos/>} />
+            <Route  path="/mysubscriptions" element={<Subscriptions/>} />
+            <Route  path="/mylikedvideos" element={<Likedvideos/>} />
+            <Route  path="/mywatchlater" element={<Watchlater/>} />
+
+
           </Routes>
         </div>
       </div>
