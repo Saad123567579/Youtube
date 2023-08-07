@@ -1,12 +1,32 @@
 import './index.css';
-import React from 'react';
+import React,{useEffect} from 'react';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Comment from "./components/Comment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 function App() {
+  useEffect(() => {
+    const Getdata = async() =>{
+      let url = "http://localhost:8080/auth/getuser";
+      const response = await fetch(url, {
+        method: 'GET',
+        credentials:'include',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any additional headers if needed
+        },
+        
+    });
+    const d = await response.json();
+    console.log(d);
+
+    }
+    Getdata();
+  }, [])
+  
   return (
     <BrowserRouter>
       <Navbar />

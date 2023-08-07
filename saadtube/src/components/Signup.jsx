@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Link } from 'react-router-dom'
 const Signup = () => {
@@ -11,7 +13,27 @@ const Signup = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data);
+        let url = "http://localhost:8080/auth/signup/";
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials:'include',
+            headers: {
+              'Content-Type': 'application/json',
+              // Add any additional headers if needed
+            },
+            body: JSON.stringify(data),
+          });
+        const d = await response.json();
+        console.log(d);
+        if(d=="Sorry a user already exists with this email") {toast.error("Email already in use");return ;}
+        if(d=="unable to save user" || d=="Internal Server Error"){toast.error("Error! Please try again");return;}
+        else {toast.success("Congratulations for signing up");
+        // setTimeout(() => {
+        //     window.location.href= "/";
+        // }, 1000);
+    }
+
+
     }
     return (
         <div className="m-auto w-2/4">
@@ -53,21 +75,7 @@ const Signup = () => {
                             {...register("password", { required: true, minLength: 3 })}
                         />
                     </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cpassword">
-                            Confirm Password
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="cpassword"
-                            type="password"
-                            placeholder="Password"
-                            {...register("cpassword", {
-                                required: true, minLength: 3, validate: (value, formValues) =>
-                                    value === watch("password"),
-                            })}
-                        />
-                    </div>
+                    
                     <div className="flex items-center justify-between">
                         <input
                             className="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

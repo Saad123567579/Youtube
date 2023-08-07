@@ -59,14 +59,14 @@ export const Login = async (req, res) => {
       expiresIn: "24hr",
     });
     res.cookie("token", token, {
+     
       httpOnly: true,
-
       path: "/",
       expires: new Date(Date.now() + 1000 * 86400),
     });
     return res
       .status(200)
-      .json({ message: "successfully logged in", token: token, user: user });
+      .json("success");
   } catch (e) {
     return res.status(500).json("Internal Server Error");
   }

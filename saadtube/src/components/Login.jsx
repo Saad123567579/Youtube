@@ -1,16 +1,39 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
-      } = useForm();
-      
-      const onSubmit = async (data) => {
+    } = useForm();
+
+    const onSubmit = async (data) => {
         console.log(data);
+        let url = "http://localhost:8080/auth/login/";
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials:'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+            body: JSON.stringify(data),
+        });
+        const d = await response.json();
+        if (d == "Invalid Email Or Password") { toast.error("Invalid Email Or Password"); return; }
+        if (d == "Internal Server Error") { toast.error("Internal Server Error"); return; }
+
+        if (d == "success") {
+            toast.success("Welcome Back");
+            // setTimeout(() => {
+            //     window.location.href = "/";
+            // }, 1000);
+        }
+
+
     }
     return (
 
@@ -38,7 +61,7 @@ const Login = () => {
                             id="password"
                             type="password"
                             placeholder="Password"
-                            {...register("name", { required: true, minLength: 3 })}
+                            {...register("password", { required: true, minLength: 3 })}
                         />
                     </div>
                     <div className="flex items-center justify-between">
