@@ -2,38 +2,23 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {useSelector,useDispatch} from "react-redux";
+import { signupUserAsync } from '../features/userSlice';
 import { Link } from 'react-router-dom'
 const Signup = () => {
+    const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
+        
     } = useForm();
 
     const onSubmit = async (data) => {
-        let url = "http://localhost:8080/auth/signup/";
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials:'include',
-            headers: {
-              'Content-Type': 'application/json',
-              // Add any additional headers if needed
-            },
-            body: JSON.stringify(data),
-          });
-        const d = await response.json();
+        const d = await dispatch((signupUserAsync(data)));
         console.log(d);
-        if(d=="Sorry a user already exists with this email") {toast.error("Email already in use");return ;}
-        if(d=="unable to save user" || d=="Internal Server Error"){toast.error("Error! Please try again");return;}
-        else {toast.success("Congratulations for signing up");
-        // setTimeout(() => {
-        //     window.location.href= "/";
-        // }, 1000);
-    }
-
-
+        if(d.payload=="Sorry a user already exists with this email"){return toast.error("Email already in use. Try something else")}
+        if(d.payload=="Internal Server Error" || d.payload=="unable to save user") {return toast.error("Internal Server Error. Please Try Again")};
+        return toast.success("Congratulations on creating your account");
     }
     return (
         <div className="m-auto w-2/4">

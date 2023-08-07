@@ -6,25 +6,17 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Comment from "./components/Comment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { getUserAsync } from './features/userSlice';
+import { useDispatch } from 'react-redux';
 function App() {
+  const dispatch = useDispatch();
   useEffect(() => {
-    const Getdata = async() =>{
-      let url = "http://localhost:8080/auth/getuser";
-      const response = await fetch(url, {
-        method: 'GET',
-        credentials:'include',
-        headers: {
-            'Content-Type': 'application/json',
-            // Add any additional headers if needed
-        },
-        
-    });
-    const d = await response.json();
-    console.log(d);
+   const getData = async()=>{
+    const d = await  dispatch(getUserAsync());
 
-    }
-    Getdata();
+   }
+   getData();
+
   }, [])
   
   return (

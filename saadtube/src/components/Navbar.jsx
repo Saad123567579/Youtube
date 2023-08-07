@@ -1,7 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserAsync } from '../features/userSlice';
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.user);
+    const handleLogout = async() => {
+        const d = await dispatch(logoutUserAsync());
+        console.log(d);
+        
+    }
     return (
         <div className="flex w-full  justify-start items-center ">
             <div className="m-4">
@@ -27,9 +35,17 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div className="flex-auto flex justify-end m-4">
-                <Link to="/signup" className="border-2 border-black p-2 -blue-100 hover:bg-black hover:text-white">Sign Up</Link>
-            </div>
+            {user ? (
+                <div className="flex justify-end m-4">
+                    <img src={user.image} className='rounded-full border-2 w-10 h-10 mr-2' />
+                    <button to="/signup" className="border-2 border-black p-2 -blue-100 hover:bg-black hover:text-white" onClick={handleLogout}>Logout</button>
+                </div>
+            ) : (
+                <div className="flex-auto flex justify-end m-4">
+                    <Link to="/signup" className="border-2 border-black p-2 -blue-100 hover:bg-black hover:text-white">Sign Up</Link>
+                </div>
+            )}
+
         </div>
 
     )

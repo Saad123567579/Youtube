@@ -66,7 +66,7 @@ export const Login = async (req, res) => {
     });
     return res
       .status(200)
-      .json("success");
+      .json({ message: "successfully logged in", token: token, user: user });
   } catch (e) {
     return res.status(500).json("Internal Server Error");
   }
