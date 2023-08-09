@@ -1,15 +1,19 @@
 import React from 'react';
 import { differenceInDays } from 'date-fns';
-
+import { Navigate, useNavigate } from 'react-router';
 const VideoItem = (props) => {
+    const navigate = useNavigate();
     const { video } = props;
     console.log("Views",video.views);
     const uploadDate = new Date(video.createdAt); 
     const currentDate = new Date();
     const daysDiff = differenceInDays(currentDate, uploadDate);
+    const handleClick = () => {
+        navigate(`video/${video._id}/`);
+    }
    
     return (
-        <div className="h-80 w-96 cursor-pointer hover:shadow-lg rounded-md overflow-hidden border border-gray-300">
+        <div className="h-80 w-96 cursor-pointer hover:shadow-lg rounded-md overflow-hidden border border-gray-300" onClick={handleClick}>
             <div className="w-full h-full flex flex-col">
                 <div className="relative h-2/3">
                     <img className="w-full h-full object-cover" alt="Video Thumbnail" src={video.thumbnail} />

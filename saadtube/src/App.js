@@ -15,6 +15,7 @@ import Subscriptions from "./components/Subscriptions"
 import Watchlater from "./components/Watchlater";
 import Likedvideos from "./components/Likedvideos";
 import Allvideos from './components/Allvideos';
+import Videodisplay from './components/Videodisplay';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -43,6 +44,8 @@ function App() {
             <Route  path="/mysubscriptions" element={<Subscriptions/>} />
             <Route  path="/mylikedvideos" element={<Likedvideos/>} />
             <Route  path="/mywatchlater" element={<Watchlater/>} />
+            <Route  path="/video/:id" element={<Videodisplay/>} />
+
 
 
           </Routes>

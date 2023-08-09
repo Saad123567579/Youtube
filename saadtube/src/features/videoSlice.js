@@ -23,6 +23,25 @@ export const getallvideoAsync = createAsyncThunk(
     }
 );
 
+export const getidvideoAsync = createAsyncThunk(
+    'user/getidvideo',
+    async (id) => {
+        let url = `http://localhost:8080/video/getvideobyid/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
+
+
 
 export const userSlice = createSlice({
     name: 'video',
@@ -48,6 +67,12 @@ export const userSlice = createSlice({
                     state.status = 'fulfilled';
                     state.videos = action.payload;
                 }
+            })
+            .addCase(getidvideoAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getidvideoAsync.fulfilled, (state, action) => {
+                
             })
     },
 

@@ -16,3 +16,23 @@ export const getAllVideo = async(req,res) => {
 
 }
 
+export const getVideoById = async (req, res) => {
+    console.log('Request received with ID:', req.params.id);
+
+    try {
+        const video = await Video.findById(req.params.id);
+        console.log('Video found:', video);
+
+        if (!video) {
+            console.log('Video not found');
+            return res.status(404).json("Not found");
+        }
+
+        return res.status(200).json(video);
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json("Internal Server Error");
+    }
+};
+
+
