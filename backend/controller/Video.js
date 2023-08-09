@@ -1,4 +1,3 @@
-import { json } from "express";
 import Video from "../modal/Video.js"
 
 export const createVideo = async(req,res) => {
@@ -16,3 +15,4 @@ export const getAllVideo = async(req,res) => {
     return res.status(200).json(data);
 
 }
+

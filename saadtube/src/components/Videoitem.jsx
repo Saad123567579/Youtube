@@ -1,24 +1,33 @@
-import React from 'react'
-const Videoitem = () => {
-    return (
-        <div className="h-80 w-96 cursor-pointer hover:shadow-lg ">
-            <div className="w-full h-full flex flex-col ">
-                <img className="w-full h-2/3" alt="image" src="https://images.pexels.com/photos/17693898/pexels-photo-17693898/free-photo-of-peek-a-boo.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" />
-                <div className="flex flex-row  w-full h-full ">
-                    <div ><img alt="img" src="https://images.pexels.com/photos/17693898/pexels-photo-17693898/free-photo-of-peek-a-boo.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" className="rounded-full w-24 h-20 p-2" /></div>
-                    <div className=" w-full h-full flex flex-col">
-                        <h1 className="font-semibold text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio amet perferendis eligendi cupiditate quo! Eveniet.</h1>
-                        <p>1000 views . 1 day ago</p>
+import React from 'react';
+import { differenceInDays } from 'date-fns';
 
+const VideoItem = (props) => {
+    const { video } = props;
+    console.log("Views",video.views);
+    const uploadDate = new Date(video.createdAt); 
+    const currentDate = new Date();
+    const daysDiff = differenceInDays(currentDate, uploadDate);
+   
+    return (
+        <div className="h-80 w-96 cursor-pointer hover:shadow-lg rounded-md overflow-hidden border border-gray-300">
+            <div className="w-full h-full flex flex-col">
+                <div className="relative h-2/3">
+                    <img className="w-full h-full object-cover" alt="Video Thumbnail" src={video.thumbnail} />
+                </div>
+                <div className="flex items-center p-3">
+                    <img
+                        alt="Uploader Avatar"
+                        src={video.createdBy.image}
+                        className="rounded-full w-12 h-12 mr-3"
+                    />
+                    <div className="flex flex-col">
+                        <h1 className="font-semibold text-sm">{video.title}</h1>
+                        <p className="text-gray-600 text-xs"> {video.views} views . {daysDiff?(daysDiff):(1)} days ago </p>
                     </div>
                 </div>
-
-
             </div>
-
-
         </div>
-    )
-}
+    );
+};
 
-export default Videoitem
+export default VideoItem;

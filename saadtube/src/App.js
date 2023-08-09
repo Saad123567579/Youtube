@@ -7,18 +7,21 @@ import Login from "./components/Login";
 import Comment from "./components/Comment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getUserAsync } from './features/userSlice';
+import { getallvideoAsync } from './features/videoSlice';
 import { useDispatch } from 'react-redux';
 import Videoupload from './components/Videoupload';
 import Myvideos from "./components/Myvideos";
 import Subscriptions from "./components/Subscriptions"
 import Watchlater from "./components/Watchlater";
 import Likedvideos from "./components/Likedvideos";
-
+import Allvideos from './components/Allvideos';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
    const getData = async()=>{
     const d = await  dispatch(getUserAsync());
+    await dispatch(getallvideoAsync());
+   
 
    }
    getData();
@@ -32,7 +35,7 @@ function App() {
         <div className='col-start-1 col-end-2'><Menu /></div>
         <div className='col-start-2 col-end-6'>
           <Routes>
-            
+          <Route  path="/" element={<Allvideos/>} />
             <Route  path="/signup" element={<Signup/>} />
             <Route  path="/login" element={<Login/>} />
             <Route  path="/videoupload" element={<Videoupload/>} />

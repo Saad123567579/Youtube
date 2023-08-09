@@ -6,4 +6,5 @@ const router = express.Router();
 router.post('/createvideo',createVideo);
 router.get('/getallvideo',getAllVideo);
 
+
 export default router;

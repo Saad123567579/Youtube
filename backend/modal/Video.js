@@ -9,7 +9,9 @@ const videoSchema = new mongoose.Schema({
   dislikes:{type:Number,default:0},
   comments:{ type: [mongoose.Schema.Types.ObjectId], ref: 'Comment'},
   createdAt: { type: Date, default: Date.now }, 
-  createdBy:{type:Object}
+  createdBy:{type:Object},
+  views:{type:Number,default:0}   
+  
 
   // other comment properties...
 });

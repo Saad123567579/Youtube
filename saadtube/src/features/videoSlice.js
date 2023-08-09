@@ -1,23 +1,22 @@
 //authSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 const initialState = {
-    user: null,
+    videos:null,
     status:"idle"
 
 };
 
-export const signupUserAsync = createAsyncThunk(
-    'user/signupUser',
-    async (data) => {
-        let url = "http://localhost:8080/auth/signup/";
+export const getallvideoAsync = createAsyncThunk(
+    'user/getallvideo',
+    async () => {
+        let url = "http://localhost:8080/video/getallvideo";
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'GET',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any additional headers if needed
-            },
-            body: JSON.stringify(data),
+            }
         });
         const d = await response.json();
         return d;
@@ -25,10 +24,8 @@ export const signupUserAsync = createAsyncThunk(
 );
 
 
-
-
 export const userSlice = createSlice({
-    name: 'user',
+    name: 'video',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
@@ -38,62 +35,20 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signupUserAsync.pending, (state) => {
+           
+            .addCase(getallvideoAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(signupUserAsync.fulfilled, (state, action) => {
-
-                if (action.payload == "Internal Server Error" || action.payload == "unable to save user" || action.payload == "Sorry a user already exists with this email") {
+            .addCase(getallvideoAsync.fulfilled, (state, action) => {
+                if (action.payload == "Internal Server Error" || action.payload == "Not Found" ) {
                     state.status = 'fulfilled';
                     return;
                 }
                 else {
                     state.status = 'fulfilled';
-                    state.user = action.payload;
+                    state.videos = action.payload;
                 }
             })
-            .addCase(loginUserAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(loginUserAsync.fulfilled, (state, action) => {
-                if (action.payload == "Internal Server Error" || action.payload == "Invalid Email Or Password") {
-                    state.status = 'fulfilled';
-                    return;
-                }
-                else {
-                    state.status = 'fulfilled';
-                    state.user = action.payload;
-                }
-            })
-            .addCase(logoutUserAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(logoutUserAsync.fulfilled, (state, action) => {
-                if (action.payload == "Internal Server Error") {
-                    state.status = 'fulfilled';
-                    return;
-                }
-                else {
-                    state.status = 'fulfilled';
-                    state.user = null;
-                }
-            })
-            .addCase(getUserAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(getUserAsync.fulfilled, (state, action) => {
-                if (action.payload == "Internal Server Error" || action.payload == "Token Not Found" || action.payload=="Invalid Token") {
-                    state.status = 'fulfilled';
-                    return;
-                }
-                else {
-                    state.status = 'fulfilled';
-                    state.user = action.payload;
-                }
-            })
-
-
-
     },
 
 
