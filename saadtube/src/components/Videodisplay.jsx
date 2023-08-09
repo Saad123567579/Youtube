@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getidvideoAsync } from '../features/videoSlice';
+import { getidvideoAsync ,getcommentbyvideoAsync} from '../features/videoSlice';
 import { parseISO, format } from 'date-fns';
 import {toast} from "react-toastify"; 
 import Comment from './Comment';
@@ -14,6 +14,7 @@ const Videodisplay = () => {
     useEffect(() => {
         const fetchVideo = async () => {
             await dispatch(getidvideoAsync(id));
+            await dispatch(getcommentbyvideoAsync());
         };
         fetchVideo();
     }, [id, dispatch]);
@@ -164,14 +165,3 @@ export default Videodisplay;
 
 
 
-
-{/* <div className="self-end flex ">
-                        <div className="cursor-pointer flex m-2"><svg className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        </svg> {video.likes} </div>
-                        <div className="cursor-pointer flex m-2"><svg className="mr-2 w-6 h-6 cursor-pointer text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        </svg> {video.dislikes}</div>
-                        <div className="cursor-pointer flex m-2"><svg className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        </svg> Share</div>
-                        <div className="cursor-pointer flex m-2"><svg className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 20">
-                        </svg> Save</div>
-                    </div> */}

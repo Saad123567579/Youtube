@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 const initialState = {
     videos:null,
     status:"idle",
-    currentVideo:null
+    currentVideo:null,
+    comments:null,
 
 };
 
@@ -52,6 +53,28 @@ export const getidvideoAsync = createAsyncThunk(
 );
 
 
+export const getcommentbyvideoAsync = createAsyncThunk(
+    'comment/getcommentbyvideo',
+    async (_, { getState }) => {
+        const id = getState().video.currentVideo._id;
+        let url = `http://localhost:8080/comment/getcommentbyid/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
+
+
+
+
 
 
 export const userSlice = createSlice({
@@ -90,6 +113,19 @@ export const userSlice = createSlice({
                 else {
                     state.status = 'fulfilled';
                     state.currentVideo = action.payload;
+                }
+            })
+            .addCase(getcommentbyvideoAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getcommentbyvideoAsync.fulfilled, (state, action) => {
+                if (action.payload == "Internal Server Error"  ) {
+                    state.status = 'fulfilled';
+                    return;
+                }
+                else {
+                    state.status = 'fulfilled';
+                    state.comments = action.payload;
                 }
             })
     },
