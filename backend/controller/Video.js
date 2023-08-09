@@ -35,4 +35,22 @@ export const getVideoById = async (req, res) => {
     }
 };
 
+export const incrementViews = async (req, res) => {
+    const videoId = req.params.id;
+
+ 
+        const updatedVideo = await Video.findByIdAndUpdate(
+            videoId,
+            { $inc: { views: 1 } }, // Increment views by 1
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedVideo) {
+            return res.status(404).json({ message: 'Video not found' });
+        }
+
+        res.status(200).json({ message: 'Views incremented successfully', updatedVideo });
+   
+};
+
 
