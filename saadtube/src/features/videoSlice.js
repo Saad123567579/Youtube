@@ -28,7 +28,7 @@ export const getallvideoAsync = createAsyncThunk(
 export const getidvideoAsync = createAsyncThunk(
     'user/getidvideo',
     async (id) => {
-        await fetch("http://localhost:8080/video/incrementviews/:id",{
+        await fetch(`http://localhost:8080/video/incrementviews/${id}`,{
             method: 'POST',
             credentials: 'include',
             headers: {

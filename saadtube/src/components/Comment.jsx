@@ -3,7 +3,7 @@ const Comment = () => {
 
 
   return (
-    <div className="flex flex-col justify-start m-5">
+    <div className="flex flex-col justify-start m-5 w-3/4">
       <div className="flex">
         <div className="flex-shrink-0">
           <img
