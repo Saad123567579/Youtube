@@ -26,23 +26,7 @@ export const createcommentAsync = createAsyncThunk(
     }
 );
 
-export const getcommentbyvideoAsync = createAsyncThunk(
-    'comment/getcommentbyvideo',
-    async (id) => {
-        
-        let url = `http://localhost:8080/comment/getcommentbyid/${id}`;
-        const response = await fetch(url, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any additional headers if needed
-            }
-        });
-        const d = await response.json();
-        return d;
-    }
-);
+
 
 
 
@@ -65,12 +49,7 @@ export const commentSlice = createSlice({
             .addCase(createcommentAsync.fulfilled, (state, action) => {
                 
             })
-            .addCase(getcommentbyvideoAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(getcommentbyvideoAsync.fulfilled, (state, action) => {
-                
-            })
+            
     },
 
 
