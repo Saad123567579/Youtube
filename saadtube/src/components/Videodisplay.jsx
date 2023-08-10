@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getidvideoAsync, getcommentbyvideoAsync, subscribeAsync, unsubscribeAsync,likeAsync } from '../features/videoSlice';
+import { getidvideoAsync, getcommentbyvideoAsync, subscribeAsync, unsubscribeAsync,likeAsync, saveAsync } from '../features/videoSlice';
 import { getUserAsync } from '../features/userSlice';
 import { parseISO, format } from 'date-fns';
 import { toast } from "react-toastify";
@@ -69,6 +69,18 @@ const Videodisplay = () => {
         }
         else return toast.error("Please Login Or Signup To Like");
     }
+    const handleShare = async() => {
+        if (user) {
+            const s = await dispatch(saveAsync());
+            console.log(s);
+            await dispatch(getidvideoAsync(id));
+            if (s.payload == "Internal Server Error" || s.payload=="User Not Found") return toast.error("Internal Server Error. Try Again");
+            if (s.payload == "Already Saved") return toast.info("Already Saved");
+            await dispatch(getUserAsync())
+            return toast.success("Saved Successfully");
+        }
+        else return toast.error("Please Login Or Signup To Share");
+    }
     const handleDislike = async() => { 
         if(user){
             toast.success("You Disliked The Video");
@@ -124,8 +136,8 @@ const Videodisplay = () => {
                                     </svg>
                                     {video.dislikes}
                                 </div>
-                                <div className="cursor-pointer flex m-2">
-                                    <svg onClick={copyCurrentPageLink}
+                                <div className="cursor-pointer flex m-2" >
+                                    <svg onClick={copyCurrentPageLink} 
                                         className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white transition-colors duration-300 hover:text-black"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -143,8 +155,8 @@ const Videodisplay = () => {
                                     <span className='font-semibold'> Share</span>
                                 </div>
 
-                                <div className="cursor-pointer flex m-2">
-                                    <svg
+                                <div className="cursor-pointer flex m-2" onClick={handleShare}>
+                                    <svg 
                                         className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white transition-colors duration-300 hover:text-black"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"

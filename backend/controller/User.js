@@ -68,6 +68,7 @@ export const Unsubscribe = async (req, res) => {
 };
 // u need a userid , video id , 
 export const Like = async (req, res) => {
+    try{
     let userId = req.body.userId;
     let videoId = req.body.videoId;
     let user = await User.findById(userId);
@@ -85,7 +86,26 @@ export const Like = async (req, res) => {
     );
     if (!updateview) return res.status(500).json("Internal Server Error");
     return res.status(200).json("Done");
+    }catch(e){ res.status(500).json("Internal Server Error");}
 
+}
+
+
+export const Save = async (req, res) => {
+    try{
+    let userId = req.body.userId;
+    let videoId = req.body.videoId;
+    let user = await User.findById(userId);
+    if (!user) return res.status(404).json("User Not Found");
+    if (user.watchlaterVids.includes(videoId)) return res.status(200).json("Already Saved");
+    let update = await User.findByIdAndUpdate(userId,
+        { $push: { watchlaterVids: videoId } },
+        { new: true }
+    )
+    if (!update) return res.status(500).json("Internal Server Error");
+    
+    return res.status(200).json("Done");
+    }catch(e){ res.status(500).json("Internal Server Error");}
 
 }
 
