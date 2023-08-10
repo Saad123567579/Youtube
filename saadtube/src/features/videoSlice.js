@@ -74,8 +74,8 @@ export const getcommentbyvideoAsync = createAsyncThunk(
 export const subscribeAsync = createAsyncThunk(
     'video/subscribe',
     async (_, { getState }) => {
-        const channelId = getState().video?.currentVideo?.createdBy?._id;
-        const userId = getState().user.user._id;
+        const channelId = getState().video?.currentVideo?.createdby._id;
+        const userId = getState().user?.user?._id;
         let obj = {channelId,userId};
         let url = `http://localhost:8080/user/subscribe`;
         const response = await fetch(url, {
@@ -96,7 +96,7 @@ export const subscribeAsync = createAsyncThunk(
 export const unsubscribeAsync = createAsyncThunk(
     'video/unsubscribe',
     async (_, { getState }) => {
-        const channelId = getState().video?.currentVideo?.createdBy?._id;
+        const channelId = getState().video?.currentVideo?.createdby._id;
         const userId = getState().user.user._id;
         let obj = {channelId,userId};
         let url = `http://localhost:8080/user/unsubscribe`;

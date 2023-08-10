@@ -25,7 +25,7 @@ const VideoItem = (props) => {
             <div className="flex items-center p-3">
                 <img
                     alt="Uploader Avatar"
-                    src={video.createdBy.image}
+                    src={video.createdby.image}
                     className="rounded-full w-12 h-12 mr-3"
                 />
                 <div className="flex flex-col">

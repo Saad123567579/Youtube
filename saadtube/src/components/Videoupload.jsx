@@ -27,6 +27,8 @@ const Videoupload = () => {
     const obj = {};
     obj.title = data.title;
     obj.createdBy = user;
+    obj.createdby = user._id;
+
     const thumbnailFile = data.thumbnail[0];
     const videoFile = data.video[0];
     const storage = getStorage(app);

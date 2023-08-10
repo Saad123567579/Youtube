@@ -8,6 +8,7 @@ import Comment from './Comment';
 import Suggestions from './Suggestions';
 const Videodisplay = () => {
     const video = useSelector((state) => state?.video?.currentVideo);
+    const user = useSelector((state)=>state?.user?.user);
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -30,6 +31,16 @@ const Videodisplay = () => {
         document.body.removeChild(tempInput);
       
         toast.success('Page link copied to clipboard ' );
+      }
+      const handleSubscribe = async() => {
+        if(user){
+            const s = await dispatch(subscribeAsync());
+            await dispatch(getidvideoAsync(id));
+            if(s.payload=="Internal Server Error") return toast.error("Internal Server Error. Try Again");
+            if(s.payload=="Already Subscribed") return toast.info("Already Subscribed"); 
+            return toast.success("Subscribed Successfully");
+        }
+        else return toast.error("Please Login Or Signup To Subscribe");
       }
       
 
@@ -127,19 +138,19 @@ const Videodisplay = () => {
                             <div>
                                 <img
                                     alt="img"
-                                    src={video.createdBy?.image}
+                                    src={video.createdby?.image}
                                     className="rounded-full w-20 h-20 p-2"
                                 />
                             </div>
                             <div className="flex flex-col justify-center">
-                                <h1 className="font-bold">{video.createdBy?.name}</h1>
+                                <h1 className="font-bold">{video.createdby?.name}</h1>
                                 <p className="font-semibold">
-                                    {video.createdBy?.subscribedMe.length} Subscribers
+                                    {video.createdby?.subscribedMe.length} Subscribers
                                 </p>
                             </div>
                             <div className="flex-auto"></div>
                             <div >
-                                <button className="bg-red-600 p-2  text-white hover:text-slate-3">
+                                <button className="bg-red-600 p-2  text-white hover:text-slate-3" onClick={handleSubscribe}>
                                     Subscribe
                                 </button>
                             </div>
