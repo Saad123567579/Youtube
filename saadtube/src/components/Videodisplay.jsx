@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getidvideoAsync, getcommentbyvideoAsync, subscribeAsync, unsubscribeAsync } from '../features/videoSlice';
+import { getidvideoAsync, getcommentbyvideoAsync, subscribeAsync, unsubscribeAsync,likeAsync } from '../features/videoSlice';
 import { getUserAsync } from '../features/userSlice';
 import { parseISO, format } from 'date-fns';
 import { toast } from "react-toastify";
@@ -57,6 +57,24 @@ const Videodisplay = () => {
         }
         else return toast.error("Please Login Or Signup To Subscribe");
     }
+    const handleLike = async() => {
+        if (user) {
+            const s = await dispatch(likeAsync());
+            console.log(s);
+            await dispatch(getidvideoAsync(id));
+            if (s.payload == "Internal Server Error" || s.payload=="User Not Found") return toast.error("Internal Server Error. Try Again");
+            if (s.payload == "Already Liked") return toast.info("Already Liked");
+            await dispatch(getUserAsync())
+            return toast.success("Unsubscribed Successfully");
+        }
+        else return toast.error("Please Login Or Signup To Like");
+    }
+    const handleDislike = async() => { 
+        if(user){
+            toast.success("You Disliked The Video");
+        }
+        else return toast.error("Please Login Or Signup To Dislike");
+    }
 
 
     return (
@@ -81,7 +99,7 @@ const Videodisplay = () => {
                             <h1 className="w-3/4 font-bold text-2xl">{video.title}</h1>
                             <div className="flex  ">
                                 <div className="cursor-pointer flex m-2 ml-auto">
-                                    <svg
+                                    <svg onClick={handleLike}
                                         className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white transition-colors duration-300 hover:text-black"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +112,7 @@ const Videodisplay = () => {
                                     {video.likes}
                                 </div>
                                 <div className="cursor-pointer flex m-2">
-                                    <svg
+                                    <svg onClick={handleDislike}
                                         className="mr-2 w-6 h-6 cursor-pointer text-gray-800 dark:text-white transition-colors duration-300 hover:text-black"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"

@@ -114,6 +114,27 @@ export const unsubscribeAsync = createAsyncThunk(
     }
 );
 
+export const likeAsync = createAsyncThunk(
+    'video/like',
+    async (_, { getState }) => {
+        const videoId = getState().video?.currentVideo?._id;
+        const userId = getState().user.user._id;
+        let obj = {videoId,userId};
+        let url = `http://localhost:8080/user/like`;
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+            body:JSON.stringify(obj)
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
 
 
 
