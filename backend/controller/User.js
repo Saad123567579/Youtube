@@ -32,24 +32,37 @@ export const Subscribe = async (req, res) => {
 };
 
 export const Unsubscribe = async (req, res) => {
-    // try {
+    try {
         let channelId = req.body.channelId;
         let userId = req.body.userId;
 
-        // Find the user by their ID and update the subscribedChannels array
-        const user = await User.findByIdAndUpdate(
+        let user = await User.findById(userId);
+        if (!user) return res.status(500).json("Internal Server Error" );
+
+        let channel = await User.findById(channelId);
+        if (!channel) return res.status(500).json("Internal Server Error");
+
+        if (!user.subscribedChannels.includes(channelId) || !channel.subscribedMe.includes(userId)) {
+            return res.status(200).json("Not Subscribed");
+        }
+
+        const u1 = await User.findByIdAndUpdate(
             userId,
             { $pull: { subscribedChannels: channelId } },
             { new: true }
         );
+        if (!u1) return res.status(500).json("Internal Server Error" );
 
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+        const u2 = await User.findByIdAndUpdate(
+            channelId,
+            { $pull: { subscribedMe: userId } },
+            { new: true }
+        );
+        if (!u2) return res.status(500).json("Internal Server Error");
 
-        return res.status(200).json({ message: "Unsubscribed successfully", user });
-    // } catch (error) {
-    //     console.error("Error unsubscribing:", error);
-    //     return res.status(500).json({ message: "Internal server error" });
-    // }
+        return res.status(200).json("Unsubscribed successfully" );
+    } catch (error) {
+        console.error("Error unsubscribing:", error);
+        return res.status(500).json("Internal Server Error");
+    }
 };

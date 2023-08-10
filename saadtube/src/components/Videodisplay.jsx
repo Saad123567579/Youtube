@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getidvideoAsync ,getcommentbyvideoAsync , subscribeAsync , unsubscribeAsync} from '../features/videoSlice';
+import { getidvideoAsync, getcommentbyvideoAsync, subscribeAsync, unsubscribeAsync } from '../features/videoSlice';
+import { getUserAsync } from '../features/userSlice';
 import { parseISO, format } from 'date-fns';
-import {toast} from "react-toastify"; 
+import { toast } from "react-toastify";
 import Comment from './Comment';
 import Suggestions from './Suggestions';
 const Videodisplay = () => {
     const video = useSelector((state) => state?.video?.currentVideo);
-    const user = useSelector((state)=>state?.user?.user);
+    const user = useSelector((state) => state?.user?.user);
     const dispatch = useDispatch();
     const { id } = useParams();
+    var includes = user?.subscribedChannels?.includes(video?.createdby?._id);
+
 
     useEffect(() => {
         const fetchVideo = async () => {
@@ -22,32 +25,44 @@ const Videodisplay = () => {
 
     function copyCurrentPageLink() {
         const currentPageLink = window.location.href;
-      
+
         const tempInput = document.createElement('input');
         document.body.appendChild(tempInput);
         tempInput.value = currentPageLink;
         tempInput.select();
         document.execCommand('copy');
         document.body.removeChild(tempInput);
-      
-        toast.success('Page link copied to clipboard ' );
-      }
-      const handleSubscribe = async() => {
-        if(user){
+
+        toast.success('Page link copied to clipboard ');
+    }
+    const handleSubscribe = async () => {
+        if (user) {
             const s = await dispatch(subscribeAsync());
             await dispatch(getidvideoAsync(id));
-            if(s.payload=="Internal Server Error") return toast.error("Internal Server Error. Try Again");
-            if(s.payload=="Already Subscribed") return toast.info("Already Subscribed"); 
+            if (s.payload == "Internal Server Error") return toast.error("Internal Server Error. Try Again");
+            if (s.payload == "Already Subscribed") return toast.info("Already Subscribed");
+            await dispatch(getUserAsync())
             return toast.success("Subscribed Successfully");
         }
         else return toast.error("Please Login Or Signup To Subscribe");
-      }
-      
+    }
+    const handleUnsubscribe = async () => {
+        if (user) {
+            const s = await dispatch(unsubscribeAsync());
+            await dispatch(getidvideoAsync(id));
+            if (s.payload == "Internal Server Error") return toast.error("Internal Server Error. Try Again");
+            if (s.payload == "Not Subscribed") return toast.info("Not Subscribed");
+            await dispatch(getUserAsync())
+            return toast.success("Unsubscribed Successfully");
+        }
+        else return toast.error("Please Login Or Signup To Subscribe");
+    }
+
 
     return (
         <div className='mt-5'>
             {!video && <>Loading...</>}
-            {video  && (
+            {video && (
                 <div className="flex justify-center absolute ">
                     <div className="m-10 flex-col w-3/5">
                         <iframe
@@ -66,7 +81,7 @@ const Videodisplay = () => {
                             <h1 className="w-3/4 font-bold text-2xl">{video.title}</h1>
                             <div className="flex  ">
                                 <div className="cursor-pointer flex m-2 ml-auto">
-                                    <svg 
+                                    <svg
                                         className="w-6 h-6 mr-2 cursor-pointer text-gray-800 dark:text-white transition-colors duration-300 hover:text-black"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +122,7 @@ const Videodisplay = () => {
                                             d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z"
                                         />
                                     </svg>
-                                   <span className='font-semibold'> Share</span>
+                                    <span className='font-semibold'> Share</span>
                                 </div>
 
                                 <div className="cursor-pointer flex m-2">
@@ -150,9 +165,16 @@ const Videodisplay = () => {
                             </div>
                             <div className="flex-auto"></div>
                             <div >
-                                <button className="bg-red-600 p-2  text-white hover:text-slate-3" onClick={handleSubscribe}>
-                                    Subscribe
-                                </button>
+                                {includes ? (
+                                    <button className="bg-red-600 p-2  text-white hover:text-slate-3" onClick={handleUnsubscribe}>
+                                        Unsubscribe
+                                    </button>
+                                ) : (
+
+                                    <button className="bg-red-600 p-2  text-white hover:text-slate-3" onClick={handleSubscribe}>
+                                        Subscribe
+                                    </button>
+                                )}
                             </div>
                         </div>
                         <div className="flex flex-col justify-start m-5  max-w-7/8 overflow-y-auto">
