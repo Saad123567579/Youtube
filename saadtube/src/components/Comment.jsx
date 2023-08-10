@@ -8,9 +8,9 @@ import { differenceInDays } from "date-fns";
 
 const Comment = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const video = useSelector((state) => state.video.currentVideo);
-  const comments = useSelector((state)=>state.video.comments);
+  const user = useSelector((state) => state?.user?.user);
+  const video = useSelector((state) => state?.video?.currentVideo);
+  const comments = useSelector((state)=>state?.video?.comments);
   useEffect(() => {
     console.log(comments);
   }, [comments])
@@ -79,7 +79,7 @@ const Comment = () => {
 
       <br />
 
-      {comments.length ? (
+      { (comments && comments.length) && comments.length ? (
         comments.map((comment) => (
           <div className="flex justify-start" key={comment.id}>
             <div className="flex-shrink-0">

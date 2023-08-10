@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getidvideoAsync ,getcommentbyvideoAsync} from '../features/videoSlice';
+import { getidvideoAsync ,getcommentbyvideoAsync , subscribeAsync , unsubscribeAsync} from '../features/videoSlice';
 import { parseISO, format } from 'date-fns';
 import {toast} from "react-toastify"; 
 import Comment from './Comment';
 import Suggestions from './Suggestions';
 const Videodisplay = () => {
-    const video = useSelector((state) => state.video.currentVideo);
+    const video = useSelector((state) => state?.video?.currentVideo);
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -36,7 +36,7 @@ const Videodisplay = () => {
     return (
         <div className='mt-5'>
             {!video && <>Loading...</>}
-            {video && (
+            {video  && (
                 <div className="flex justify-center absolute ">
                     <div className="m-10 flex-col w-3/5">
                         <iframe

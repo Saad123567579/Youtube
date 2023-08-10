@@ -71,6 +71,49 @@ export const getcommentbyvideoAsync = createAsyncThunk(
     }
 );
 
+export const subscribeAsync = createAsyncThunk(
+    'video/subscribe',
+    async (_, { getState }) => {
+        const channelId = getState().video?.currentVideo?.createdBy?._id;
+        const userId = getState().user.user._id;
+        let obj = {channelId,userId};
+        let url = `http://localhost:8080/user/subscribe`;
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+            body:JSON.stringify(obj)
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
+
+export const unsubscribeAsync = createAsyncThunk(
+    'video/unsubscribe',
+    async (_, { getState }) => {
+        const channelId = getState().video?.currentVideo?.createdBy?._id;
+        const userId = getState().user.user._id;
+        let obj = {channelId,userId};
+        let url = `http://localhost:8080/user/unsubscribe`;
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+            body:JSON.stringify(obj)
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
 
 
 
@@ -127,6 +170,18 @@ export const userSlice = createSlice({
                     state.status = 'fulfilled';
                     state.comments = action.payload;
                 }
+            })
+            .addCase(subscribeAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(subscribeAsync.fulfilled, (state, action) => {
+                state.status = 'fulfilled';
+            })
+            .addCase(unsubscribeAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(unsubscribeAsync.fulfilled, (state, action) => {
+                state.status = 'fulfilled';
             })
     },
 
