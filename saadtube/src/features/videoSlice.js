@@ -155,6 +155,23 @@ export const saveAsync = createAsyncThunk(
         return d;
     }
 );
+export const getlikedvideosAsync = createAsyncThunk(
+    'video/getlikedvideos',
+    async (_, { getState }) => {
+        const id = getState().user?.user?._id;
+        let url = `http://localhost:8080/user/getlikedvideos/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
 
 
 

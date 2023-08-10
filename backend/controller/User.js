@@ -68,44 +68,81 @@ export const Unsubscribe = async (req, res) => {
 };
 // u need a userid , video id , 
 export const Like = async (req, res) => {
-    try{
-    let userId = req.body.userId;
-    let videoId = req.body.videoId;
-    let user = await User.findById(userId);
-    if (!user) return res.status(404).json("User Not Found");
-    if (user.likeVids.includes(videoId)) return res.status(200).json("Already Liked");
-    let update = await User.findByIdAndUpdate(userId,
-        { $push: { likeVids: videoId } },
-        { new: true }
-    )
-    if (!update) return res.status(500).json("Internal Server Error");
-    let updateview = await Video.findByIdAndUpdate(
-        videoId,
-        { $inc: { likes: 1 } },
-        { new: true }
-    );
-    if (!updateview) return res.status(500).json("Internal Server Error");
-    return res.status(200).json("Done");
-    }catch(e){ res.status(500).json("Internal Server Error");}
+    try {
+        let userId = req.body.userId;
+        let videoId = req.body.videoId;
+        let user = await User.findById(userId);
+        if (!user) return res.status(404).json("User Not Found");
+        if (user.likeVids.includes(videoId)) return res.status(200).json("Already Liked");
+        let update = await User.findByIdAndUpdate(userId,
+            { $push: { likeVids: videoId } },
+            { new: true }
+        )
+        if (!update) return res.status(500).json("Internal Server Error");
+        let updateview = await Video.findByIdAndUpdate(
+            videoId,
+            { $inc: { likes: 1 } },
+            { new: true }
+        );
+        if (!updateview) return res.status(500).json("Internal Server Error");
+        return res.status(200).json("Done");
+    } catch (e) { res.status(500).json("Internal Server Error"); }
 
 }
 
 
 export const Save = async (req, res) => {
-    try{
-    let userId = req.body.userId;
-    let videoId = req.body.videoId;
-    let user = await User.findById(userId);
-    if (!user) return res.status(404).json("User Not Found");
-    if (user.watchlaterVids.includes(videoId)) return res.status(200).json("Already Saved");
-    let update = await User.findByIdAndUpdate(userId,
-        { $push: { watchlaterVids: videoId } },
-        { new: true }
-    )
-    if (!update) return res.status(500).json("Internal Server Error");
-    
-    return res.status(200).json("Done");
-    }catch(e){ res.status(500).json("Internal Server Error");}
+    try {
+        let userId = req.body.userId;
+        let videoId = req.body.videoId;
+        let user = await User.findById(userId);
+        if (!user) return res.status(404).json("User Not Found");
+        if (user.watchlaterVids.includes(videoId)) return res.status(200).json("Already Saved");
+        let update = await User.findByIdAndUpdate(userId,
+            { $push: { watchlaterVids: videoId } },
+            { new: true }
+        )
+        if (!update) return res.status(500).json("Internal Server Error");
 
+        return res.status(200).json("Done");
+    } catch (e) { res.status(500).json("Internal Server Error"); }
+
+}
+
+export const getLikedVideos = async (req, res) => {
+    try {
+        let data = await User.findById(req.params.id)
+            .populate({
+                path: "likeVids",
+                populate: {
+                    path: "createdby",
+                    model: "User" // Replace with the correct model name for the createdBy field
+                }
+            })
+            .exec();
+        if (!data) return res.status(404).json("Not Found");
+
+        return res.status(200).json(data)
+    }
+    catch (e) { console.log(e); return res.status(500).json("Internal Server Error"); }
+
+}
+
+export const getMyVideos = async (req, res) => {
+    let data = await User.findById(req.body.id).populate("myVids").exec();
+    if (!data) return res.status(404).json("Not Found");
+    return res.status(200).json(data)
+}
+
+export const getsavedVideos = async (req, res) => {
+    let data = await User.findById(req.body.id).populate("watchlaterVids").exec();
+    if (!data) return res.status(404).json("Not Found");
+    return res.status(200).json(data)
+}
+
+export const getsubscribedChannels = async (req, res) => {
+    let data = await User.findById(req.body.id).populate("subscribedChannels").exec();
+    if (!data) return res.status(404).json("Not Found");
+    return res.status(200).json(data)
 }
 
