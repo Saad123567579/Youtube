@@ -16,7 +16,7 @@
     
     "headers": [
           {
-            "source": "/(.*)",
+            "source": "https://saadtube.vercel.app",
             "headers": [
               { "key": "Access-Control-Allow-Credentials", "value": "true" },
               { "key": "Access-Control-Allow-Origin", "value": "https://saadtube.vercel.app" },
