@@ -1,13 +1,40 @@
 import Video from "../modal/Video.js";
 import User from "../modal/User.js";
-export const createVideo = async(req,res) => {
-const data = req.body;
-let video = new Video(data);
-let s = await video.save();
-if(!s) return res.status(500).json("Internal Server Error");
-console.log(s);
-return res.status(200).json("video uploaded");
-}
+
+
+
+export const createVideo = async (req, res) => {
+  try {
+    const data = req.body;
+    const userId = req.body.createdby;
+
+    let video = new Video(data);
+    let savedVideo = await video.save();
+    
+    if (!savedVideo) {
+      return res.status(500).json("Internal Server Error");
+    }
+
+    // Fetch the user based on the userId
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+
+    // Push the saved video's ID into the user's myVids array
+    user.myVids.push(savedVideo._id);
+    await user.save();
+
+    console.log(savedVideo);
+    console.log(user);
+
+    return res.status(200).json("Video uploaded and user updated");
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json("Internal Server Error");
+  }
+};
 
 export const getAllVideo = async(req,res) => {
     const data = await Video.find().populate('createdby').exec();
@@ -79,6 +106,28 @@ export const revert = async (req, res) => {
     }
   };
  
+
+  export const update = async(req,res) => {
+    try {
+      // Fetch all videos from the database
+      const videos = await Video.find();
+  
+      // Iterate through videos and update user's myVids field
+      for (const video of videos) {
+        const user = await User.findById(video.createdby);
+        if (user) {
+          user.myVids.push(video._id);
+          await user.save();
+        }
+      }
+  
+      res.json({ message: 'User videos updated successfully.' });
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'An error occurred while updating user videos.' });
+    }
+  
+  }
   
   
   

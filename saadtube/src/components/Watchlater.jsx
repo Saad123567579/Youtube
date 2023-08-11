@@ -41,7 +41,7 @@ const Watchlater = () => {
         Loading...
       </div> }
       {user && videos && videos.length == 0 && <div className='m-auto font-bold text-lg'>
-        There are no liked videos. Try liking one
+        There are no saved videos. Try saving one
       </div>}
       {user && videos && videos.length && (
       <>

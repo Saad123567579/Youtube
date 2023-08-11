@@ -212,6 +212,25 @@ export const getsubchannelsAsync = createAsyncThunk(
     }
 );
 
+export const getmyvideosAsync = createAsyncThunk(
+    'video/getmyvideos',
+    async (_, { getState }) => {
+        const id = await getState().user?.user?._id;
+       
+        let url = `http://localhost:8080/user/getmyvideos/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
 
 
 

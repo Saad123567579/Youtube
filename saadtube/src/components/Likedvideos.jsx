@@ -45,20 +45,20 @@ const Likedvideos = () => {
       </div>)}
       {user && !videos && <div className='m-auto font-bold text-lg'>
         Loading...
-      </div> }
+      </div>}
       {user && videos && videos.length == 0 && <div className='m-auto font-bold text-lg'>
         There are no liked videos. Try liking one
       </div>}
       {user && videos && videos.length && (
-      <>
-      <h1 className='m-auto font-bold text-lg'>Your Liked Videos Are</h1>
-      <div className="grid grid-cols-3 gap-4 p-4">
-    {videos?.map((vid) => (
-      <Videoitem key={vid.id} video={vid} />
-    ))}
-  </div>
-  </>
-  )}
+        <>
+          <h1 className='m-auto font-bold text-lg'>Your Liked Videos Are</h1>
+          <div className="grid grid-cols-3 gap-4 p-4">
+            {videos?.map((vid) => (
+              <Videoitem key={vid.id} video={vid} />
+            ))}
+          </div>
+        </>
+      )}
 
 
     </>

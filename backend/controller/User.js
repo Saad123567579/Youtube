@@ -132,8 +132,6 @@ export const getLikedVideos = async (req, res) => {
     }
 };
 
-
-
 export const getsavedVideos = async (req, res) => {
     try {
         const data = await User.findById(req.params.id)
@@ -175,20 +173,26 @@ export const getsubscribedChannels = async (req, res) => {
 };
 
 
+  export const getMyVideos = async (req, res) => {
+    try {
+        const data = await User.findById(req.params.id)
+            .populate({
+                path: "myVids",
+                populate: {
+                    path: "createdby",
+                    model: "User" // Replace with the correct model name for the createdBy field
+                }
+            })
+            .exec();
 
-// export const getsubscribedChannels = async (req, res) => {
-//     let data = await User.findById(req.body.id).populate("subscribedChannels").exec();
-//     if (!data) return res.status(404).json("Not Found");
-//     return res.status(200).json(data)
-// }
+        if (!data) {
+            return res.status(404).json("User not found");
+        }
 
-
-export const getMyVideos = async (req, res) => {
-    let data = await User.findById(req.body.id).populate("myVids").exec();
-    if (!data) return res.status(404).json("Not Found");
-    return res.status(200).json(data)
-}
-
-
-
+        return res.status(200).json(data);
+    } catch (error) {
+        console.error("Error fetching liked videos:", error);
+        return res.status(500).json("Internal Server Error");
+    }
+};
 

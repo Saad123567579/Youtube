@@ -90,8 +90,9 @@ const Videoupload = () => {
             body: JSON.stringify(obj),
         });
         const d = await response.json();
-        if(d=="Internal Server Error") {toast.error("Error in uploading the video.Please Try Again")}
-        if(d=="video uploaded"){ toast.success("The video has been uploaded");return;}
+        if(d=="Internal Server Error") {return toast.error("Error in uploading the video.Please Try Again")}
+        if(d=="User not found") { return toast.error("User Not Found")}
+        if(d=="Video uploaded and user updated"){ toast.success("The video has been uploaded");return;}
         });
       }
       
