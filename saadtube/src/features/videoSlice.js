@@ -158,8 +158,47 @@ export const saveAsync = createAsyncThunk(
 export const getlikedvideosAsync = createAsyncThunk(
     'video/getlikedvideos',
     async (_, { getState }) => {
-        const id = getState().user?.user?._id;
+        const id = await getState().user?.user?._id;
+       
         let url = `http://localhost:8080/user/getlikedvideos/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
+export const getsavedvideosAsync = createAsyncThunk(
+    'video/getsavedvideos',
+    async (_, { getState }) => {
+        const id = await getState().user?.user?._id;
+    
+        let url = `http://localhost:8080/user/getsavedvideos/${id}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            }
+        });
+        const d = await response.json();
+        return d;
+    }
+);
+
+export const getsubchannelsAsync = createAsyncThunk(
+    'video/getsavedvideos',
+    async (_, { getState }) => {
+        const id = await getState().user?.user?._id;
+       
+        let url = `http://localhost:8080/user/getsubchannels/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',

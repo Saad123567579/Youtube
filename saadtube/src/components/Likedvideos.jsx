@@ -8,7 +8,7 @@ const Likedvideos = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
 
-  
+
 
   // Define videos as a state variable
   const [videos, setVideos] = useState([]);
@@ -24,41 +24,43 @@ const Likedvideos = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
 
 
-  if(!videos) return (<>Loading...</>)
+
 
   return (
     <>
-      {user ? (
-        <>
-          {videos.length ? (
-            <div className="grid grid-cols-3 gap-4 p-4">
-              {videos?.map((vid) => (
-                <Videoitem key={vid.id} video={vid} />
-              ))}
-            </div>
-          ) : (
-            <div className='m-auto font-bold text-lg'>
-              There are no liked videos. Try liking one
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="flex flex-col justify-start align-middle text-center">
-          <h1 className='font-bold p-5'>
-            Please Signup To See Your Liked Videos
-          </h1>
-          <Link
-            to="/signup"
-            className='border-2 p-5 border-black hover:bg-black hover:text-white cursor-pointer'
-          >
-            Sign Up
-          </Link>
-        </div>
-      )}
+      {!user && (<div className="flex flex-col justify-start align-middle text-center">
+        <h1 className='font-bold p-5'>
+          Please Signup To See Your Liked Videos
+        </h1>
+        <Link
+          to="/signup"
+          className='border-2 p-5 border-black hover:bg-black hover:text-white cursor-pointer'
+        >
+          Sign Up
+        </Link>
+      </div>)}
+      {user && !videos && <div className='m-auto font-bold text-lg'>
+        Loading...
+      </div> }
+      {user && videos && videos.length == 0 && <div className='m-auto font-bold text-lg'>
+        There are no liked videos. Try liking one
+      </div>}
+      {user && videos && videos.length && (
+      <>
+      <h1 className='m-auto font-bold text-lg'>Your Liked Videos Are</h1>
+      <div className="grid grid-cols-3 gap-4 p-4">
+    {videos?.map((vid) => (
+      <Videoitem key={vid.id} video={vid} />
+    ))}
+  </div>
+  </>
+  )}
+
+
     </>
   );
 };

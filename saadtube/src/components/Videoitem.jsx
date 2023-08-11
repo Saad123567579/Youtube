@@ -10,7 +10,7 @@ const VideoItem = (props) => {
     const daysDiff = differenceInDays(currentDate, uploadDate);
 
     const handleClick = () => {
-        navigate(`video/${video._id}/`);
+        navigate(`/video/${video._id}/`);
     };
 
     return (

@@ -65,7 +65,7 @@ const Videodisplay = () => {
             if (s.payload == "Internal Server Error" || s.payload=="User Not Found") return toast.error("Internal Server Error. Try Again");
             if (s.payload == "Already Liked") return toast.info("Already Liked");
             await dispatch(getUserAsync())
-            return toast.success("Unsubscribed Successfully");
+            return toast.success("Liked Successfully");
         }
         else return toast.error("Please Login Or Signup To Like");
     }
