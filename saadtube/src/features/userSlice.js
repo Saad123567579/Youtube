@@ -9,7 +9,7 @@ const initialState = {
 export const signupUserAsync = createAsyncThunk(
     'user/signupUser',
     async (data) => {
-        let url = "http://localhost:8080/auth/signup/";
+        let url = "https://stubebackend.vercel.app/auth/signup/";
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -26,7 +26,7 @@ export const signupUserAsync = createAsyncThunk(
 export const loginUserAsync = createAsyncThunk(
     'user/loginUser',
     async (data) => {
-        let url = "http://localhost:8080/auth/login/";
+        let url = "https://stubebackend.vercel.app/auth/login/";
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -45,7 +45,7 @@ export const loginUserAsync = createAsyncThunk(
 export const logoutUserAsync = createAsyncThunk(
     'user/logoutUser',
     async () => {
-        let url = "http://localhost:8080/auth/logout";
+        let url = "https://stubebackend.vercel.app/auth/logout";
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -63,7 +63,7 @@ export const logoutUserAsync = createAsyncThunk(
 export const getUserAsync = createAsyncThunk(
     'user/getUser',
     async () => {
-        let url = "http://localhost:8080/auth/getuser";
+        let url = "https://stubebackend.vercel.app/auth/getuser";
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',

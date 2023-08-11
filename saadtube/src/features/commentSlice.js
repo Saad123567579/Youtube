@@ -11,7 +11,7 @@ export const createcommentAsync = createAsyncThunk(
     'comment/createcomment',
     async (data) => {
         
-        let url = "http://localhost:8080/comment/createcomment";
+        let url = "https://stubebackend.vercel.app/comment/createcomment";
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',

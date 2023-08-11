@@ -12,7 +12,7 @@ export const getallvideoAsync = createAsyncThunk(
     'user/getallvideo',
     async () => {
         
-        let url = "http://localhost:8080/video/getallvideo";
+        let url = "https://stubebackend.vercel.app/video/getallvideo";
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -29,7 +29,7 @@ export const getallvideoAsync = createAsyncThunk(
 export const getidvideoAsync = createAsyncThunk(
     'user/getidvideo',
     async (id) => {
-        await fetch(`http://localhost:8080/video/incrementviews/${id}`,{
+        await fetch(`https://stubebackend.vercel.app/video/incrementviews/${id}`,{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -38,7 +38,7 @@ export const getidvideoAsync = createAsyncThunk(
             }
         });
 
-        let url = `http://localhost:8080/video/getvideobyid/${id}`;
+        let url = `https://stubebackend.vercel.app/video/getvideobyid/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -57,7 +57,7 @@ export const getcommentbyvideoAsync = createAsyncThunk(
     'comment/getcommentbyvideo',
     async (_, { getState }) => {
         const id = getState().video.currentVideo._id;
-        let url = `http://localhost:8080/comment/getcommentbyid/${id}`;
+        let url = `https://stubebackend.vercel.app/comment/getcommentbyid/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -77,7 +77,7 @@ export const subscribeAsync = createAsyncThunk(
         const channelId = getState().video?.currentVideo?.createdby._id;
         const userId = getState().user?.user?._id;
         let obj = {channelId,userId};
-        let url = `http://localhost:8080/user/subscribe`;
+        let url = `https://stubebackend.vercel.app/user/subscribe`;
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -99,7 +99,7 @@ export const unsubscribeAsync = createAsyncThunk(
         const channelId = getState().video?.currentVideo?.createdby._id;
         const userId = getState().user.user._id;
         let obj = {channelId,userId};
-        let url = `http://localhost:8080/user/unsubscribe`;
+        let url = `https://stubebackend.vercel.app/user/unsubscribe`;
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -120,7 +120,7 @@ export const likeAsync = createAsyncThunk(
         const videoId = getState().video?.currentVideo?._id;
         const userId = getState().user?.user?._id;
         let obj = {videoId,userId};
-        let url = `http://localhost:8080/user/like`;
+        let url = `https://stubebackend.vercel.app/user/like`;
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -141,7 +141,7 @@ export const saveAsync = createAsyncThunk(
         const videoId = getState().video?.currentVideo?._id;
         const userId = getState().user?.user?._id;
         let obj = {videoId,userId};
-        let url = `http://localhost:8080/user/save`;
+        let url = `https://stubebackend.vercel.app/user/save`;
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -160,7 +160,7 @@ export const getlikedvideosAsync = createAsyncThunk(
     async (_, { getState }) => {
         const id = await getState().user?.user?._id;
        
-        let url = `http://localhost:8080/user/getlikedvideos/${id}`;
+        let url = `https://stubebackend.vercel.app/user/getlikedvideos/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -179,7 +179,7 @@ export const getsavedvideosAsync = createAsyncThunk(
     async (_, { getState }) => {
         const id = await getState().user?.user?._id;
     
-        let url = `http://localhost:8080/user/getsavedvideos/${id}`;
+        let url = `https://stubebackend.vercel.app/user/getsavedvideos/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -198,7 +198,7 @@ export const getsubchannelsAsync = createAsyncThunk(
     async (_, { getState }) => {
         const id = await getState().user?.user?._id;
        
-        let url = `http://localhost:8080/user/getsubchannels/${id}`;
+        let url = `https://stubebackend.vercel.app/user/getsubchannels/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
@@ -217,7 +217,7 @@ export const getmyvideosAsync = createAsyncThunk(
     async (_, { getState }) => {
         const id = await getState().user?.user?._id;
        
-        let url = `http://localhost:8080/user/getmyvideos/${id}`;
+        let url = `https://stubebackend.vercel.app/user/getmyvideos/${id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',

@@ -79,7 +79,7 @@ const Videoupload = () => {
           setIsVideoUploading(false);
           obj.link = url;
           console.log(obj);
-          let u = "http://localhost:8080/video/createvideo";
+          let u = "https://stubebackend.vercel.app/video/createvideo";
         const response = await fetch(u, {
             method: 'POST',
             credentials: 'include',
