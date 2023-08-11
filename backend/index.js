@@ -18,7 +18,11 @@ connect();
 app.use(cors({
     origin: 'https://saadtube.vercel.app',
     credentials: true,
-  }));
+    methods: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+    allowedHeaders: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+    exposedHeaders: 'Authorization, Access-Control-Allow-Origin', // Add the headers you want to expose
+}));
+
 app.use(express.json());
 
 
