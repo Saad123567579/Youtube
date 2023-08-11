@@ -16,7 +16,7 @@ const connect = () => {
 }
 connect();
 app.use(cors({
-    origin: 'https://saadtube.vercel.app',
+    
     credentials: true,
   }));
 app.use(express.json());
