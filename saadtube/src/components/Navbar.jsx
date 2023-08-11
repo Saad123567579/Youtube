@@ -7,6 +7,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
     const handleLogout = async() => {
+        window.location.href="/";
         const d = await dispatch(logoutUserAsync());
         console.log(d);
         
