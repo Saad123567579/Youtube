@@ -15,6 +15,10 @@ const connect = () => {
     .catch(()=>console.log("Error in connecting to the database"));
 }
 connect();
+
+
+
+
 app.use(cors({
     origin: 'https://saadtube.vercel.app',
     credentials: true,
@@ -23,9 +27,24 @@ app.use(cors({
     exposedHeaders: 'Authorization, Access-Control-Allow-Origin', // Add the headers you want to expose
 }));
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', 'https://saadtube.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, PATCH, DELETE, POST, PUT');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+    
+    
+    
+    
+    
+    next();
+});
+
+
 app.use(express.json());
-
-
 app.use(cookieParser());
 app.use("/user",userRouter);
 app.use("/video",videoRouter);
